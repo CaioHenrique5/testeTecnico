@@ -1,0 +1,31 @@
+CREATE TABLE associado (
+    id BIGINT PRIMARY KEY,
+    cpf VARCHAR(11) NOT NULL UNIQUE
+);
+
+CREATE TABLE pauta (
+    id BIGINT PRIMARY KEY,
+    descricao VARCHAR(255) NOT NULL,
+    votos_sim INT NOT NULL DEFAULT 0,
+    votos_nao INT NOT NULL DEFAULT 0,
+    session_id BIGINT,
+    FOREIGN KEY (session_id) REFERENCES session(id)
+);
+
+CREATE TABLE session (
+    id BIGINT PRIMARY KEY,
+    pauta_id BIGINT NOT NULL UNIQUE,
+    duracao INT NOT NULL,
+    abertura TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fechamento TIMESTAMP,
+    FOREIGN KEY (pauta_id) REFERENCES pauta(id)
+);
+
+CREATE TABLE voto (
+    id BIGINT PRIMARY KEY,
+    pauta_id BIGINT NOT NULL,
+    associado_id BIGINT NOT NULL,
+    voto VARCHAR(3) NOT NULL,
+    FOREIGN KEY (pauta_id) REFERENCES pauta(id),
+    FOREIGN KEY (associado_id) REFERENCES associado(id)
+);
