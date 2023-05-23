@@ -3,7 +3,7 @@
 Exemplos de Requests:
   1.Cadastrar uma nova pauta:
     Método: POST
-    URL: /api/pautas
+    URL: /pauta
     Corpo da requisição:
     {
       "descricao": "Descrição da pauta"
@@ -11,15 +11,16 @@ Exemplos de Requests:
     Resposta esperada: 201 Created
   2.Abrir uma sessão de votação em uma pauta:
       Método: POST
-      URL: /api/pautas/{pautaId}/sessoes
-      Corpo da requisição (opcional):
+      URL: /sessaoVotacao
+      Corpo da requisição:
       {
-        "duracao": 5
+        "tempoAberturaSessao": 5,
+        "idPauta": 1
       }
       Resposta esperada: 201 Created
   3.Contabilizar os votos e dar o resultado da votação na pauta:
       Método: GET
-      URL: /api/pautas/{pautaId}/resultado
+      URL: /pauta/resultado/{id}
       Resposta esperada:
       {
         "pautaId": 1,
@@ -28,14 +29,3 @@ Exemplos de Requests:
         "votosNao": 5,
         "resultado": "APROVADA"
       }
-  4. Exemplo de registrarVoto.
-      Método: POST
-      URL: /api/votos
-      Corpo da requisição:
-      {
-        "pautaId": 1,
-        "cpf": "12345678900",
-        "voto": "SIM",
-        "associadoId": "1"
-      }
-      Resposta esperada: 201 Created
